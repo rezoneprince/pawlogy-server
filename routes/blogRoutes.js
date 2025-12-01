@@ -50,23 +50,23 @@ router.get("/:id", async (req, res) => {
 });
 
 // Create blog (protected)
-// router.post("/", authMiddleware, async (req, res) => {
-//   try {
-//     const { title, description, image, metaTitle, metaDescription } = req.body;
+router.post("/", authMiddleware, async (req, res) => {
+  try {
+    const { title, description, image, metaTitle, metaDescription } = req.body;
 
-//     const blog = new Blog({
-//       title,
-//       description,
-//       image,
-//       metaTitle,
-//       metaDescription,
-//     });
+    const blog = new Blog({
+      title,
+      description,
+      image,
+      metaTitle,
+      metaDescription,
+    });
 
-//     await blog.save();
-//     res.status(201).json({ message: "Blog created", blog });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+    await blog.save();
+    res.status(201).json({ message: "Blog created", blog });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 module.exports = router;

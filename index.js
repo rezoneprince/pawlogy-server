@@ -8,9 +8,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// const path = require("path");
-// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
 // Routes
 const blogRoutes = require("./routes/blogRoutes");
 app.use("/api/blogs", blogRoutes);
