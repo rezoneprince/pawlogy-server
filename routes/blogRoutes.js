@@ -1,6 +1,7 @@
 const express = require("express");
 // const path = require("path");
 const Blog = require("../models/blog.js");
+const authMiddleware = require("../middleware/authMiddleware.js");
 
 const router = express.Router();
 
@@ -45,6 +46,26 @@ router.get("/:id", async (req, res) => {
     res.json(blog);
   } catch (err) {
     return res.status(500).json({ err: "err.message" });
+  }
+});
+
+// Create blog (protected)
+router.post("/", authMiddleware, async (req, res) => {
+  try {
+    const { title, description, image, metaTitle, metaDescription } = req.body;
+
+    const blog = new Blog({
+      title,
+      description,
+      image,
+      metaTitle,
+      metaDescription,
+    });
+
+    await blog.save();
+    res.status(201).json({ message: "Blog created", blog });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
